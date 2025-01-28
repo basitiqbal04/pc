@@ -1,0 +1,12 @@
+{
+  "extends": "htmlhint:recommended",
+  "rules": {
+    "tagname-lowercase": true,
+    "attr-lowercase": true,
+    "attr-value-double-quotes": true,
+    "img-alt-require": true,
+    "id-unique": true,
+    "src-not-empty": true,
+    "head-script-disabled": true
+  }
+}
