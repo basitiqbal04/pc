@@ -1,47 +1,49 @@
-name: Pull Request Validation
+name: PR Validation
 
 on:
   pull_request:
     branches:
       - develop
+    paths:
+      - '**.js'
+      - '**.ts'
+      - '**.html'
+      - '**.css'
+      - '**.json'
+      - '**.yml'
+      - '**.yaml'
 
 jobs:
-  lint:
-    name: Lint HTML and CSS
+  pr-validation:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js (if using Node.js)
+        uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: '14'  # Adjust node version if necessary
 
-      - name: Install Linting Tools
+      - name: Install dependencies (Node.js example)
         run: |
-          npm install htmlhint stylelint stylelint-config-standard
+          npm install
 
-      - name: Lint HTML
-        run: npx htmlhint "src/**/*.html"
+      - name: Run linters and tests (example using ESLint for JavaScript)
+        run: |
+          npm run lint
+          npm test
 
-      - name: Lint CSS
-        run: npx stylelint "styles/**/*.css"
+      - name: Check formatting (example using Prettier)
+        run: |
+          npx prettier --check .
 
-  build:
-    name: Build Static Website
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Validate YAML files
+        run: |
+          npx yaml-lint **/*.yml
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
+      - name: Run additional checks (if necessary)
+        run: |
+          echo "Add any other commands to validate the PR"
 
-      - name: Install Parcel
-        run: npm install parcel
-
-      - name: Build Static Website
-        run: npx parcel build src/home.js --dist-dir dist --public-url ./
