@@ -1,12 +1,16 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "color-no-invalid-hex": true,
-    "declaration-colon-newline-after": "always-multi-line",
-    "block-no-empty": true,
-    "selector-pseudo-class-no-unknown": true,
+    "declaration-block-no-duplicate-properties": true,
     "no-duplicate-selectors": true,
-    "max-nesting-depth": 3,
-    "no-invalid-position-at-import-rule": true
+    "property-no-unknown": true,
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": ["inherit", "initial", "unset"]
+      }
+    ],
+    "selector-type-no-unknown": true,
+    "block-no-empty": true
   }
 }
